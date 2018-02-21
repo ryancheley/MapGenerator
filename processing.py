@@ -1,17 +1,24 @@
 import os
+import csv
+from data_types import City
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
 
-def get_file_data(file_name):
-    landmarks = open(file_name, 'r')
-    landmarks = landmarks.readlines()
-    landmarks = [item.rstrip() for item in landmarks]
-    return landmarks
+def load_file(file_name):
+    with open(file_name, 'r', encoding='utf-8') as fin:
+
+        reader = csv.DictReader(fin)
+        city = []
+        for row in reader:
+            c = City.create_from_dict(row)
+            city.append(c)
+
+        return city
 
 
-def save_images_without_name(file_name, plot_file_type):
+def get_image_file_name(file_name, plot_file_type):
     path = os.getcwd() + "/images/"
     img = Image.open(path + file_name + '.' + plot_file_type)
     return img
