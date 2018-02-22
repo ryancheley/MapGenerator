@@ -2,7 +2,8 @@ import osmnx as ox
 from processing import save_images_with_name, get_image_file_name, load_file
 
 # Declare Graph Address Variables
-ADDRESS_DISTANCE = 7500
+MARGIN = 0.15
+ADDRESS_DISTANCE = 750
 ADDRESS_DISTANCE_TYPE = 'network'
 ADDRESS_NETWORK_TYPE = 'walk'
 
@@ -15,19 +16,17 @@ PLOT_DPI = 300
 PLOT_EDGE_LINE_WIDTH = 2.0
 PLOT_FILE_TYPE = 'png'
 
+
 FILL = (0, 0, 0, 0)
 
 
 def main():
     ox.config(log_file=False, log_console=True, use_cache=False)
-    landmarks = load_file('/Users/Ryan/Dropbox/Ryan/Python/landmarks single.txt')
+    landmarks = load_file('/Users/Ryan/Dropbox/Ryan/Python/landmarks.txt')
     process_file(landmarks, PLOT_FILE_TYPE, '#3366cc', '#cc0000')
 
 
 def process_file(data, plot_file_type, short_distance_edge_color, long_distance_edge_color):
-
-    # TODO: determine how to use the margin paramter to help make the city name not overlay the map
-
     for city in data:
         g = ox.graph_from_address(
             city.city,
@@ -45,7 +44,7 @@ def process_file(data, plot_file_type, short_distance_edge_color, long_distance_
             g,
             bgcolor=PLOT_BACKGROUND_COLOR,
             node_size=PLOT_NODE_SIZE,
-            # margin=0.2, # Future Feature
+            margin=MARGIN,
             fig_height=PLOT_FIGURE_HEIGHT,
             fig_width=PLOT_FIGURE_WIDTH,
             file_format=plot_file_type,
