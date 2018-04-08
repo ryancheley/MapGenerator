@@ -12,8 +12,6 @@ PLOT_BACKGROUND_COLOR = '#000000' #Black
 PLOT_NODE_SIZE = 0
 PLOT_DPI = 300
 PLOT_FILE_TYPE = 'png'
-
-
 FILL = (0, 0, 0, 0)  #White
 
 
@@ -25,24 +23,24 @@ def main(size):
 
 def process_file(data, plot_file_type, short_distance_edge_color, long_distance_edge_color, size):
     if size == 'S':
-        PLOT_FIGURE_HEIGHT = 5
-        PLOT_FIGURE_WIDTH = 5
-        PLOT_EDGE_LINE_WIDTH = 1.25
-        FONT_SIZE = 64
-        DISTANCE_FROM_TOP = 12.5
+        plot_figure_height = 5
+        plot_figure_width = 5
+        plot_edge_line_width = 1.25
+        font_size = 64
+        distance_from_top = 12.5
     elif size == 'M':
-        PLOT_FIGURE_HEIGHT = 10
-        PLOT_FIGURE_WIDTH = 10
-        PLOT_EDGE_LINE_WIDTH = 2.5
-        FONT_SIZE = 128
-        DISTANCE_FROM_TOP = 25
+        plot_figure_height = 10
+        plot_figure_width = 10
+        plot_edge_line_width = 2.5
+        font_size = 128
+        distance_from_top = 25
 
     else:
-        PLOT_FIGURE_HEIGHT = 40
-        PLOT_FIGURE_WIDTH = 40
-        PLOT_EDGE_LINE_WIDTH = 10
-        FONT_SIZE = 512
-        DISTANCE_FROM_TOP = 100
+        plot_figure_height = 40
+        plot_figure_width = 40
+        plot_edge_line_width = 10
+        font_size = 512
+        distance_from_top = 100
     for city in data:
         g = ox.graph_from_address(
             city.city,
@@ -60,21 +58,20 @@ def process_file(data, plot_file_type, short_distance_edge_color, long_distance_
             g,
             bgcolor=PLOT_BACKGROUND_COLOR,
             node_size=PLOT_NODE_SIZE,
-            #margin=MARGIN,
-            fig_height=PLOT_FIGURE_HEIGHT,
-            fig_width=PLOT_FIGURE_WIDTH,
+            fig_height=plot_figure_height,
+            fig_width=plot_figure_width,
             file_format=plot_file_type,
             dpi=PLOT_DPI,
             filename=city.city,
             save=True,
             edge_color=ec,
-            edge_linewidth=PLOT_EDGE_LINE_WIDTH,
+            edge_linewidth=plot_edge_line_width,
             show=False
         )
 
         img = get_image_file_name(city.city, plot_file_type)
 
-        save_images_with_name(city.city, img, FILL, plot_file_type, FONT_SIZE, DISTANCE_FROM_TOP, size)
+        save_images_with_name(city.city, img, FILL, plot_file_type, font_size, distance_from_top, size)
 
 
 if __name__ == '__main__':
