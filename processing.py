@@ -24,13 +24,13 @@ def get_image_file_name(file_name, plot_file_type):
     return img
 
 
-def save_images_with_name(name, img, fill, plot_file_type):
+def save_images_with_name(name, img, fill, plot_file_type, font_size, distance_from_top, size):
     width, height = img.size
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("/System/Library/Fonts/SFCompactDisplay-Regular.otf", 512)
-    draw.text((width / 32, 100), name, fill=fill, font=font)
+    font = ImageFont.truetype("/System/Library/Fonts/SFCompactDisplay-Regular.otf", font_size)
+    draw.text((width / 32, distance_from_top), name, fill=fill, font=font)
 
-    file_name = os.path.abspath(os.path.join('./images', name + '_text.' + plot_file_type))
+    file_name = os.path.abspath(os.path.join('./images', name + '_' + size + plot_file_type))
 
     img.save(file_name)
 
